@@ -12,11 +12,11 @@
     <div class="header">
         <nav class="navbar" style="background-color: #e3f2fd;">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="{{ url_for('static', filename='logo.png') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Recipe Search" aria-label="Search">
+                <form class="d-flex" role="search" action="{{ url_for('search_query') }}" method="get">
+                    <input class="form-control me-2" type="search" placeholder="Recipe Search" aria-label="Search" name="query" required>
                     <button class="btn btn-outline-success" type="submit">Find</button>
                 </form>
             </div>
