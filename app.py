@@ -23,8 +23,7 @@ def index():
     dinner = json.loads(requests.get(ap, params=parameters).text)
     parameters["mealType"] = "snack"
     snack = json.loads(requests.get(ap, params=parameters).text)
-    print(breakfast['hits'][0]['recipe']['label'])
-    return render_template("index.html", title="Home")
+    return render_template("index.html", title="Home", breakfast=breakfast, dinner=dinner, snack=snack)
 
 @app.route("/search")
 def search_query():
