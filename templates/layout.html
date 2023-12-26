@@ -12,7 +12,7 @@
         <nav class="navbar" style="background-color: #e3f2fd;">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">
-                    <img src="{{ url_for('static', filename='logo.png') }}" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                    <img src="{{ url_for('static', filename='logo.png') }}" alt="logo" width="60" height="60" class="d-inline-block align-text-top">
                 </a>
                 <form class="d-flex" role="search" action="{{ url_for('search_query') }}" method="get">
                     <input class="form-control me-2" type="search" placeholder="Recipe Search" aria-label="Search" name="query" required>
