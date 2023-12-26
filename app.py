@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for
-# from py_edamam import Edamam
 import json, requests
 
 app = Flask(__name__)
@@ -9,7 +8,6 @@ parameters = {
     "app_key": "6dabaa16f7dd84c2501b48f31475bc74",
     "type": "public"
 }
-recipe_data = None
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -27,9 +25,11 @@ def index():
 
 @app.route("/search")
 def search_query():
-    query = request.args.get('query')
-    print(query)
-    return redirect(url_for("index"))
+    parameters["q"] = request.args.get('query')
+    parameters.pop("mealType", None)
+    parameters.pop("random", None)
+    results = json.loads(requests.get(ap, params=parameters).text)
+    return render_template("search.html", title="Search", results=results, query=parameters["q"])
     
 if __name__ == "__main__":
     app.run(debug=True)

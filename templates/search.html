@@ -3,5 +3,50 @@
 {% block title %}Search{% endblock %}
 
 {% block content %}
+<div class="position-relative" style="height: 50px;">
+    <p class="h5 position-absolute top-50 start-50 translate-middle">Recipes for: <ins>{{ query|title }}</ins></p>
+</div>
+<div class="container mt-4 p-4">
+    <div class="row">
+    {% if results["hits"] %}
+        {% for hit in results["hits"]|slice(18) %}
+            <div class="col-md-4 mb-3">
+                <div class="card"> 
+                    <div class="row g-0"> 
+                        <div class="col-md-6"> 
+                            <img src="{{ hit[0]['recipe']['image'] }}" style="width: 100%; height: 200px; object-fit: cover;" class="img-fluid rounded-start" alt="{{ hit[0]['recipe']['label'] }}"> 
+                        </div> 
+                        <div class="col-md-6"> 
+                            <div class="card-body" style="height: 400px; overflow: auto;"> 
+                                <h5 class="card-title">{{ hit[0]['recipe']['label'] }}</h5> 
+                                <p class="card-text">
+                                    <p><strong>Calories: </strong> <mark>{{ hit[0]['recipe']['calories']|int }}</mark></p>
+                                    <p><strong>Dish Type: </strong> {{ hit[0]['recipe']['dishType'][0]|capitalize }}</p>
+                                    <p><strong>Cuisine Type: </strong> <em>{{ hit[0]['recipe']['cuisineType'][0]|title }}</em></p>
+                                    {% for label in hit[0]['recipe']['dietLabels'] %}
+                                        <button type="button" class="btn btn-outline-info btn-sm" disabled>{{ label|title }}</button>
+                                    {% endfor %}
+                                </p> 
+                                <a class="icon-link icon-link-hover" href="{{ hit[0]['recipe']['url'] }}" target="_blank">
+                                    <button type="button" class="btn btn-primary">View Recipe</button>
+                                </a>
+                            </div> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <button type="button" class="btn btn-outline-danger btn-lg text-center" disabled>(Only this can be loaded at the moment. More functionality coming soon...)</button>
+    {% else %}
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <p class="card-text">No results found for <mark>{{ query|title }}</mark>. Please try again.</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    </div>
+</div>
 
 {% endblock %}
